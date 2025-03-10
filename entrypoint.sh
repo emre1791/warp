@@ -7,9 +7,11 @@
 warp-svc &
 sleep 3
 
-# Check if a WARP token is provided
-if [ -z "$WARP_CONNECTOR_TOKEN" ]; then
-    echo "No WARP_CONNECTOR_TOKEN provided. Exiting..."
+# Read WARP token from Swarm secret if available, otherwise use environment variable
+if [ -f "/run/secrets/warp-token" ]; then
+    WARP_CONNECTOR_TOKEN=$(cat /run/secrets/warp-token)
+elif [ -z "$WARP_CONNECTOR_TOKEN" ]; then
+    echo "Error: No WARP_CONNECTOR_TOKEN provided via secret or environment variable. Exiting..."
     exit 1
 fi
 
