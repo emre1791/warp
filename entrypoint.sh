@@ -20,7 +20,7 @@ echo "Connecting to WARP..."
 warp-cli --accept-tos registration delete
 warp-cli --accept-tos settings reset
 warp-cli --accept-tos connector new "$WARP_CONNECTOR_TOKEN"
-warp-cli --accept-tos mode warp+doh
+warp-cli --accept-tos mode proxy
 warp-cli --accept-tos connect
 
 # Keep the container running
