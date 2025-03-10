@@ -22,6 +22,11 @@ warp-cli --accept-tos settings reset
 warp-cli --accept-tos connector new "$WARP_CONNECTOR_TOKEN"
 warp-cli --accept-tos mode proxy
 warp-cli --accept-tos connect
+sleep 3
+
+# Allow WARP SOCKS5 Proxy to Listen on All Interfaces
+echo "Starting SOCKS5 proxy on 0.0.0.0:40000..."
+socat TCP-LISTEN:40000,fork,reuseaddr SOCKS4A:127.0.0.1:0.0.0.0:40000,socksport=40000 &
 
 # Keep the container running
 tail -f /dev/null
